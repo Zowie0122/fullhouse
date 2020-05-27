@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <title>Welcome to Full-House</title>
+</head>
+<body>
+<div class ='exp_bg'>
+<h1 class = 'happyh1'>It would be nice if you could...</h1>
+
+<ul id='notes'>
+    {% for expectation in all_expectations %}
+    <li>
+        <h5>{{expectation.content}}</h5>   
+        <h5>Last updated: {{expectation.last_update}}</h5>
+        <form action = "deleteExpectation/{{expectation.id}}/" method = "post">{% csrf_token %}
+            <button type = 'submit' class="btn btn-info" >Delete</button>
+        </form>
+    </li>
+    {% endfor %}
+</ul>
+
+<form action = "addExpectations/" method = "post">{% csrf_token %}
+    <textarea class="form-control z-depth-1" id="exampleFormControlTextarea6" rows="3" type = 'text' name = 'content'></textarea>
+    <Button type = 'submit' class="btn btn-primary" value= 'Send'>Send your message</Button>
+</form>
